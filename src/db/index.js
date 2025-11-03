@@ -5,11 +5,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const pool = new Pool({
-  host: process.env.PG_HOST,
-  port: process.env.PG_PORT,
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
-  database: process.env.PG_DATABASE,
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false } // penting untuk koneksi Neon
 });
 
 // helper function buat query cepat
@@ -17,7 +14,7 @@ const query = (text, params) => pool.query(text, params);
 
 // test koneksi langsung (optional, bisa dihapus kalau udah yakin)
 pool.connect()
-  .then(() => console.log('✅ Connected to PostgreSQL successfully!'))
-  .catch((err) => console.error('❌ PostgreSQL connection error:', err.message));
+  .then(() => console.log('Connected to PostgreSQL successfully!'))
+  .catch((err) => console.error('PostgreSQL connection error:', err.message));
 
 module.exports = { pool, query };

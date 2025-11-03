@@ -7,18 +7,16 @@ dotenv.config();
 const { Pool } = pg;
 
 const pool = new Pool({
-  host: process.env.PG_HOST,
-  port: process.env.PG_PORT,
-  user: process.env.PG_USER,
-  password: process.env.PG_PASSWORD,
-  database: process.env.PG_DATABASE,
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false } // penting untuk koneksi Neon
 });
+
 
 const createTables = async () => {
   const client = await pool.connect();
 
   try {
-    console.log("🚀 Starting table creation...");
+    console.log("Starting table creation...");
 
     await client.query("BEGIN");
 
@@ -75,10 +73,10 @@ const createTables = async () => {
     `);
 
     await client.query("COMMIT");
-    console.log("✅ All tables created successfully!");
+    console.log("All tables created successfully!");
   } catch (err) {
     await client.query("ROLLBACK");
-    console.error("❌ Error creating tables:", err.message);
+    console.error("Error creating tables:", err.message);
   } finally {
     client.release();
     pool.end();

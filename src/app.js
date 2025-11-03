@@ -19,8 +19,8 @@ app.use(morgan('dev'));
 
 // Jalankan create table saat server start
 createTables()
-  .then(() => console.log('✅ Database tables checked or created!'))
-  .catch((err) => console.error('❌ Error creating tables:', err));
+  .then(() => console.log('Database tables checked or created!'))
+  .catch((err) => console.error('Error creating tables:', err));
 
 // test route
 app.get('/', (req, res) => {
@@ -42,4 +42,4 @@ app.use((err, req, res, next) => {
 });
 // jalankan server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
