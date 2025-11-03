@@ -82,8 +82,6 @@ const updateUserProfile = async ({ userId, first_name, last_name }) => {
 };
 
 
-const { query } = require('../db');
-
 const updateProfileImage = async ({ userId, imageUrl }) => {
   const sql = `
     UPDATE users

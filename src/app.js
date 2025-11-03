@@ -24,11 +24,10 @@ createTables()
 
 // test route
 app.get('/', (req, res) => {
-  res.json({ message: 'API is running 🚀' });
+  res.json({ message: 'API is running' });
 });
 
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(userRoutes);
 app.use(bannerRoutes);
 app.use(serviceRoutes);

@@ -2,17 +2,18 @@
   "name": "topup",
   "version": "1.0.0",
   "main": "index.js",
- "scripts": {
-  "dev": "nodemon src/app.js",
-  "start": "node src/app.js",
-  "seed": "node src/db/seed.js",
-  "setup": "npm run seed && npm run dev"
-},
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js",
+    "seed": "node src/db/seed.js",
+    "setup": "npm run seed && npm run dev"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@vercel/blob": "^2.0.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",

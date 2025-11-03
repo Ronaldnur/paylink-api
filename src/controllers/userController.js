@@ -1,4 +1,5 @@
 // controllers/userController.js
+const { put } = require('@vercel/blob');
 const response = require('../utils/response');
 const userService = require('../services/userService');
 const { generateToken, verifyToken } = require('../utils/jwt');
@@ -130,9 +131,15 @@ const updatePicture = async (req, res) => {
     }
 
     // URL file, misal disimpan lokal + base URL
-    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    // Upload file ke Vercel Blob
+    const blob = await put(`profile-${Date.now()}.jpg`, req.file.buffer, {
+      access: 'public', // biar bisa diakses langsung
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
 
-    const result = await userService.updateProfileImage({ userId, imageUrl: fileUrl });
+    const imageUrl = blob.url;
+
+    const result = await userService.updateProfileImage({ userId,imageUrl});
 
     if (!result.success) {
       return response.badRequest(res, result.message);
